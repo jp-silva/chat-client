@@ -1,0 +1,1 @@
+Based on https://github.com/nlinhvu/spring-boot-bitcoin-mcp-server-2025

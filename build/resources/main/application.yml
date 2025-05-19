@@ -1,0 +1,30 @@
+
+spring:
+  application:
+    name: chat-client
+  main:
+    web-application-type: none
+
+  shell:
+    interactive:
+      enabled: true
+
+  ai:
+    openai:
+      api-key: AIzaSyBrgZ73Hwd7gZK7h63iCJEHOm3h8rYjAXM
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai
+      chat:
+        completions-path: /chat/completions
+        options:
+          model: gemini-2.0-flash
+    mcp:
+      client:
+        stdio:
+          connections:
+            filesystem:
+              command: npx
+              args: -y,@modelcontextprotocol/server-filesystem,/Users/pedro.silva/Downloads/test-folder
+        sse:
+          connections:
+            http-mcp-server:
+              url: http://localhost:8081
