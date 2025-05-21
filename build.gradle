@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'vn.cloud'
+group = 'com.pedrosilva.chatclient'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -18,16 +18,29 @@ repositories {
 }
 
 ext {
-	set('springAiVersion', "1.0.0-M6")
+	set('springAiVersion', "1.0.0")
 	set('springShellVersion', "3.4.0")
 }
 
 dependencies {
-	implementation 'org.springframework.ai:spring-ai-mcp-client-spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
 	implementation 'org.springframework.shell:spring-shell-starter'
 
-	implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+	// MCP
+	implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
+
+	// OPEN AI
+	implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+
+	// VECTOR STORE
+	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
+	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+
+	// DOCUMENT READER
+	implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+
+	runtimeOnly 'org.postgresql:postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.shell:spring-shell-starter-test'
