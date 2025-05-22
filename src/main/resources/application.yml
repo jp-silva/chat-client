@@ -26,19 +26,18 @@ spring:
         options:
           model: text-embedding-004
 #          model: gemini-embedding-exp-03-07
-
-
-  #    mcp:
-#      client:
-#        stdio:
+    mcp:
+      client:
+        name: chat-client
+        sse:
+          connections:
+            http-mcp-server:
+              url: http://localhost:8081
+  #          stdio:
 #          connections:
 #            filesystem:
 #              command: npx
 #              args: -y,@modelcontextprotocol/server-filesystem,/Users/pedro.silva/Downloads/test-folder
-#        sse:
-#          connections:
-#            http-mcp-server:
-#              url: http://localhost:8081
   datasource:
     url: jdbc:postgresql://localhost/vector_store
     username: postgres
