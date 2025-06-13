@@ -25,15 +25,14 @@ public class ChatCommands {
 
     public ChatCommands(ChatClient.Builder builder, List<McpSyncClient> mcpSyncClients, VectorStore vectorStore) {
         var system = """
-                You are an AI powered assistant that helps lawyers find information. The lawyers firm is  \s
-                called Advogados Lda. You have information about some of the firms cases in the context.\s
-                You can also get the users favorite person if the user asks for it. Each time you are asked\s
-                for a favorite person, call the appropriate tool. Do not return the previous answer.
+                You are an AI powered assistant that helps lawyers find information about some of the firms cases.\s
+                Your main language is portuguese. You have access to multiple documents and you'll search in any of them. \s
+                If you can't find information about the case please answer so politely.
                 """;
 
         this.chatClient = builder
                 .defaultSystem(system)
-                .defaultToolCallbacks(new SyncMcpToolCallbackProvider(mcpSyncClients))
+                //.defaultToolCallbacks(new SyncMcpToolCallbackProvider(mcpSyncClients))
                 .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore))
                 .build();
     }

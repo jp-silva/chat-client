@@ -6,6 +6,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -15,7 +16,7 @@ public class VectorStorePopulator {
     private final JdbcTemplate jdbcTemplate;
     private final PdfDocumentReader pdfDocumentReader;
 
-    public VectorStorePopulator(VectorStore vectorStore, JdbcTemplate jdbcTemplate, PdfDocumentReader pdfDocumentReader) {
+    public VectorStorePopulator(VectorStore vectorStore, JdbcTemplate jdbcTemplate, PdfDocumentReader pdfDocumentReader) throws IOException {
         this.vectorStore = vectorStore;
         this.jdbcTemplate = jdbcTemplate;
         this.pdfDocumentReader = pdfDocumentReader;
@@ -23,10 +24,10 @@ public class VectorStorePopulator {
         this.init();
     }
 
-    void init() {
+    void init() throws IOException {
         jdbcTemplate.update("delete from vector_store");
 
-        List<Document> documents = pdfDocumentReader.getDocsFromPdfWithCatalog();
+        List<Document> documents = pdfDocumentReader.getDocsFromPdf();
         var textSplitter = new TokenTextSplitter();
         vectorStore.accept(textSplitter.apply(documents));
     }
